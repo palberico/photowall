@@ -1,4 +1,26 @@
-//remove
+import {database} from '../firebase/config';
+
+export function startAddingPost(post) {
+   return (dispatch) => {
+       return database.ref('posts').update({[post.id]: post}).then(() => {
+           dispatch(addPost(post))
+       }).catch((error) => {
+           console.log(error)
+       })
+   }
+}
+
+export function startLoadingPost() {
+    return (dispatch) => {
+        return database.ref('posts').once('value').then((snapshot) => {
+            let posts = []
+            snapshot.forEach((childSnapshot) => {
+              posts.push(childSnapshot.val())
+          })
+          dispatch(loadPosts(posts))
+        })
+    }    
+}
 
 export function removePost(index) {
     return {
@@ -22,4 +44,9 @@ export function addComment(comment, postId) {
     }
 }
 
-//adding post
+export function loadPosts(posts) {
+    return {
+        type: 'LOAD_POSTS',
+        posts
+    }
+}

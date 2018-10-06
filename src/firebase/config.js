@@ -1,3 +1,4 @@
+import * as firebase from 'firebase';
 
   var config = {
     apiKey: "AIzaSyDQOigZy5S1lwD1ItcrbvAy71f1LBVHf5Q",
@@ -8,3 +9,8 @@
     messagingSenderId: "512254213574"
   };
   
+  firebase.initializeApp(config)
+
+  const database = firebase.database()
+
+  export {database}
