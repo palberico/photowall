@@ -22,6 +22,15 @@ export function startLoadingPost() {
     }    
 }
 
+export function startRemovePost(index, id) {
+return (dispatch) => {
+    return database.ref(`posts/${id}`).remove().then(() => {
+        dispatch(removePost(index))
+    })
+  }  
+}
+
+
 export function removePost(index) {
     return {
         type: 'REMOVE_POST',
